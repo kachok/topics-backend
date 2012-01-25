@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Interactive Topic Modeling</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+	<script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+
+
+	<script src="static/js/input.js"></script>
+
+
+	<!--
+	<script src="input.js"></script>
+	<script src="output.js"></script>
+	-->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/main.css">
+
+    <style type="text/css">
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+    <script type="text/javascript" src="static/js/main.js"></script>
+
+    <script>
+		var vocab=null;
+		var docs=null;
+		
+		var output=null;
+
+    	$(document).ready(function() {
+  			// Handler for .ready() called.
+  			//alert("call for data");
+  			//load_input();
+  			//alert(d);
+  			render_input(d);
+  			//alert("input renderd");
+			setup_autocomplete();
+			
+			onload_stuff();
+		});
+    </script>
+
+            <!--link href="static/css/wordsort.css" rel="stylesheet" type="text/css"-->
+
+        <script type="text/javascript" src="static/js/EventHelpers.js"></script>
+        <script type="text/javascript" src="static/js/DragDropHelpers.js"></script>
+        <script type="text/javascript" src="static/js/permissionForm.js"></script>
+
+
+        <!--script type="text/javascript" src="static/js/bagOfWords.js"></script-->
+
+
+		<!--script src="/static/js/bootstrap-modal.js"></script-->
+
+
+  </head>
+<body>
+	    <div class="topbar">
+	      <div class="fill">
+	        <div class="container">
+	          <a class="brand" href="#">Interactive Topic Modeling</a>
+	          <ul class="nav">
+	            <li class="active"><a href="#">Home</a></li>
+	            <li><a href="#about">About</a></li>
+	            <li><a href="#contact">Contact</a></li>
+	          </ul>
+	          <form action="" class="pull-right">
+	            <input class="input-small" type="text" placeholder="Username">
+	            <input class="input-small" type="password" placeholder="Password">
+	            <button class="btn" type="submit">Sign in</button>
+	          </form>
+	        </div>
+	      </div>
+	    </div>
+
+
+
+	  <div class="container">
+
+	      <div class="content">
+	        <!--div class="page-header">
+	          <h1>Page name <small>Supporting text or tagline</small></h1>
+	        </div-->
+
+			<div class="row">
+		 <div class="span16">
+			<h2>New Topic Modeling Session</h2>
+		      <form method="GET" action="ui.html">
+		        <fieldset>
+		          <!--legend>New Topic Modeling Session</legend-->
+		          <div class="clearfix">
+		            <label for="sessionname">Session Name</label>
+		            <div class="input">
+		              <input class="xlarge" id="sessionname" name="sessionname" size="30" type="text" />
+		            </div>
+		          </div><!-- /clearfix -->
+		          <div class="clearfix">
+		            <label for="corpus">Corpus</label>
+		            <div class="input">
+		              <select name="corpus" id="corpus">
+		                <option>Associated Press</option>
+		                <option>New York Times</option>
+		                <option>News Wire Service</option>
+		              </select>
+		            </div>
+		          </div><!-- /clearfix -->
+		          <div class="clearfix">
+		            <label for="topicsnum">Number of topics:</label>
+		            <div class="input">
+		              <select class="medium" name="topicsnum" id="topicsnum">
+		                <option>10</option>
+		                <option>20</option>
+		                <option>30</option>
+		                <option>40</option>
+		                <option>50</option>
+		              </select>
+		            </div>
+		          </div><!-- /clearfix -->
+				
+	          		<div class="actions">
+		        
+		<input type="submit" class="btn large primary" value="Start">
+				</div>
+
+		        </fieldset>
+		      </form>
+		    </div>
+		</div>
+
+		
+	      <footer id="footer">
+	        <p>&copy; This is just a test 2012</p>
+	      </footer>
+	  </div>
+  </div>
+	
+</body>
+</html>

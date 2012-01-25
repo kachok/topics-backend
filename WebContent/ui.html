@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Interactive Topic Modeling</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+	<script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+
+
+	<script src="static/js/input.js"></script>
+
+
+	<!--
+	<script src="input.js"></script>
+	<script src="output.js"></script>
+	-->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/main.css">
+
+    <style type="text/css">
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+    <script type="text/javascript" src="static/js/main.js"></script>
+
+    <script>
+		var vocab=null;
+		var docs=null;
+		
+		var output=null;
+
+    	$(document).ready(function() {
+  			// Handler for .ready() called.
+  			//alert("call for data");
+  			//load_input();
+  			//alert(d);
+  			render_input(d);
+  			//alert("input renderd");
+			setup_autocomplete();
+			
+			onload_stuff();
+		});
+    </script>
+
+            <!--link href="static/css/wordsort.css" rel="stylesheet" type="text/css"-->
+
+        <script type="text/javascript" src="static/js/EventHelpers.js"></script>
+        <script type="text/javascript" src="static/js/DragDropHelpers.js"></script>
+        <script type="text/javascript" src="static/js/permissionForm.js"></script>
+
+
+        <!--script type="text/javascript" src="static/js/bagOfWords.js"></script-->
+
+
+		<!--script src="/static/js/bootstrap-modal.js"></script-->
+
+
+  </head>
+<body>
+	    <div class="topbar">
+	      <div class="fill">
+	        <div class="container">
+	          <a class="brand" href="#">Interactive Topic Modeling</a>
+	          <ul class="nav">
+	            <li class="active"><a href="#">Home</a></li>
+	            <li><a href="#about">About</a></li>
+	            <li><a href="#contact">Contact</a></li>
+	          </ul>
+	          <form action="" class="pull-right">
+	            <input class="input-small" type="text" placeholder="Username">
+	            <input class="input-small" type="password" placeholder="Password">
+	            <button class="btn" type="submit">Sign in</button>
+	          </form>
+	        </div>
+	      </div>
+	    </div>
+
+
+
+	  <div class="container">
+
+	      <div class="content">
+	        <!--div class="page-header">
+	          <h1>Page name <small>Supporting text or tagline</small></h1>
+	        </div-->
+
+			<div class="row table-header">
+				<div class="span4"><h2>Topics</h2></div>
+				<div class="span8"><h2>Words</h2></div>
+				<div class="span4"><h2>Documents</h2></div>
+			</div>
+
+			<!-- all topics will be inserted here-->
+
+			<!--hr style="width:100%"/>
+			<div class="row">
+				<div class="span4">Topic 01</div>
+				<div class="span8">feds admit double counting talking health care billion medicare fund parts money reference healthcare reform prescription medicare latimes http medicare vouchers</div>
+				<div class="span4">1305159433902. csv_Apr_23_19347237267; 1305159433902. csv_Apr_24_19370682750; </div>
+			</div-->
+			<div id="edit-panel" style="display:none;">
+				<br/>
+
+				<div class="row">
+				<div class="span4 bucket">
+					<h5 style="padding-left:10px;">important words</h5>
+					<div id="important-words" class="bag-of-words  userList"></div>
+				</div>
+				<div class="span5 bucket">
+					<h5 style="padding-left:10px;">all words</h5>
+					<div id="all-words" class="bag-of-words userList">
+					<span class="label">Other</span>
+					<span class="label">Default</span>
+					<span class="label">Default</span>
+					<span class="label">Default</span>
+					<span class="label">Other</span>
+					<span class="label">Default</span>
+					<span class="label">Other</span>
+					<span class="label">Default</span>
+					<span class="label">Default</span>
+					<span class="label">Default</span>
+
+					</div>
+					<br/>
+
+					<h5 style="padding-left:10px;">add new words</h5>
+					<input class="span4" id="tags" name="" type="text" placeholder=""></input>
+					<button class="btn small" id="add-tag">Add</button>
+					
+				</div>
+				<div class="span4 bucket">
+					<h5 style="padding-left:10px;">ignored words</h5>
+					<div id="ignored-words" class="bag-of-words  userList"></div>
+				</div>
+				<div class="span2andhalf offset0andhalf bucket">
+					&nbsp; <img src="static/icons/218-trash2.png"></img>
+					<br/>
+					<div id="deleted-words" class="bag-of-words  userList"></div>
+					
+					<!--h5 style="padding-left:10px;">trashcan</h5-->
+				</div>
+				</div>
+				<form>
+				<div class="actions">
+					<input type="submit" id="edit-panel-save" class="btn success" value="Save changes">
+					<button type="reset" id="edit-panel-cancel" class="btn">Cancel</button>
+				</div>
+				</form>
+				<br/>
+			</div>
+
+			<!--hr style="width:100%"/>
+			<div class="row">
+				<div class="span16  unread">
+				<div class="row">
+				<div class="span4 topic">Topic 01</div>
+				<div class="span8 words">feds admit double counting talking health care billion medicare fund parts money reference healthcare reform prescription medicare latimes http medicare vouchers</div>
+				<div class="span4 documents">1305159433902. csv_Apr_23_19347237267; 1305159433902. csv_Apr_24_19370682750; </div>
+				</div>
+
+				</div>
+			</div>
+			<hr style="width:100%"/>
+			<div class="row">
+				<div class="span16  unread">
+				<div class="row">
+				<div class="span4 topic">Topic 01</div>
+				<div class="span8 words">feds admit double counting talking health care billion medicare fund parts money reference healthcare reform prescription medicare latimes http medicare vouchers</div>
+				<div class="span4 documents">1305159433902. csv_Apr_23_19347237267; 1305159433902. csv_Apr_24_19370682750; </div>
+				</div>
+
+				</div>
+			</div-->
+
+
+
+
+
+			<form action="ui.html" method="GET">
+			<input type="submit" id="done" class="btn primary" value="Next Iteration"/>
+			</form>
+			
+	      <footer id="footer">
+	        <p>&copy; This is just a test 2012</p>
+	      </footer>
+	  </div>
+  </div>
+	
+</body>
+</html>
